@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<record id="sale_order_view_form_inherit" model="ir.ui.view">
+		<field name="name">sale.order.form</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+
+			<field name="order_line" position="before">
+
+				<group col="4" >
+					<group col="2">
+						<field name="surcharge"/>
+						<field name="amount1" attrs="{'invisible':[('surcharge', '=', False)], 'required':[('surcharge', '=', True)]}"/>
+						<field name="amount2" attrs="{'invisible':[('surcharge', '=', False)], 'required':[('surcharge', '=', True)]}"/>
+						<field name="amount3" attrs="{'invisible':[('surcharge', '=', False)], 'required':[('surcharge', '=', True)]}"/>
+
+						<button name="update_sale_order" string="Actualizar" type="object" class="btn-primary" attrs="{'invisible':[('surcharge', '=', False)]}"/>
+
+					</group>
+
+				</group>
+			</field>
+
+
+
+			<xpath expr="//field[@name='amount_tax']" position="before">
+				
+					<field name="amount_surcharge"/>
+					<field name="amount_surcharge_vale"/>
+				
+			</xpath>
+
+			<xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="before">
+				<field name="amount_surcharge"/>
+			</xpath>
+
+		</field>
+	</record>
+</odoo>
